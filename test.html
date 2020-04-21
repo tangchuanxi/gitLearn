@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id ='box'>
+
+    </div>
+    <script>
+/**
+ * @param {number[]} deck
+ * @return {boolean}
+ */
+ var hasGroupsSizeX = function(deck) {
+    let map = new Map()
+    // 建立映射关系
+    deck.sort()
+    let keyArr = []
+    for (let index = 0; index < deck.length; index++) {
+        const val = deck[index];
+        if (map.has(val)) {
+            let newVal = map.get(val)
+            map.set(val, ++newVal)
+        }else (
+            map.set(val, 1)
+        )
+    }
+
+    for (const [key, val] of map) {
+        keyArr.push(val)
+    }
+    keyArr.sort()
+    if ((keyArr[0] >= 2) && keyArr.every(val => val%keyArr[0] === 0)) return true
+    return false
+};
+
+function gcd (num1, num2) {
+    return num2 === 0 ? num1 : gcd(num2, num1 % num2); 
+}
+
+console.log(gcd(9, 4))
+
+
+function processArray (items, process, callBack) {
+    let todos = items.concat()
+
+    setTimeout(function () {
+        let todo = todos.splice(0, 100*10)
+        process(todo)
+        if (todos.length > 0) {
+            setTimeout(arguments.callee, 100);
+        }else {
+            callBack()
+        }
+    }, 25);
+}
+
+
+let items = []
+function render(nodes ) {
+    let box = document.querySelector('#box')
+    for (const node of nodes) {
+        let newNode = document.createElement('li')
+        newNode.innerHTML = node
+        box.appendChild(newNode)
+    }
+}
+let processComplete = function() {
+    console.log('game is over!')
+}
+for (let index = 0; index < 10* 10000; index++) {
+    items.push(index)
+}
+
+// processArray(items, render, processComplete)
+var a={}, b='123', c=123;  
+a[b]='b';
+a[c]='c';  
+console.log(a);
+console.log(a[b]);
+
+// --------------------- b
+// example 2
+var a={}, b=Symbol('123'), c=Symbol('123');  
+a[b]='b';
+a[c]='c';  
+console.log(a[b]);
+
+// --------------------- b
+// example 3
+var a={}, b={key:'123'}, c={};  
+a[b]='b';
+a[c]='c';  
+console.log(a);
+console.log(a[b]);
+
+
+;(function() {
+    console.log(this)
+}.call(this));
+// --------------------- c
+
+
+    </script>
+</body>
+</html>
